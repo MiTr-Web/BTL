@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+    </style>
+    @using System.Web.Optimization
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!--navbar-->
+    <nav class="navbar navbar-toggleable-sm navbar-expand-sm fixed-top navbar-dark" style="background-color:limegreen;">
+        <a class="navbar-brand" href="#">Logo</a>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navb" style="">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control" type="text" placeholder="Search">
+                <button class="btn btn-success my-2 my-sm-0" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <style>
+            @@media screen and (min-width: 480px) {
+                .navbar {
+                    padding: 0;
+                    padding-left: 20px;
+                }
+
+                .navbar-brand {
+                    padding-top: 7px;
+                    padding-bottom: 7px;
+                }
+
+                .navbar-collapse {
+                    padding-bottom: 7px;
+                    padding-top: 7px;
+                }
+            }
+            .form-control{
+                border-radius:0;
+            }
+        </style>
+        <script>
+
+        </script>
+    </nav>
+    <div class="container-fluid" style="padding-top:60px">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <footer class="footer-navbar">
+        <div class="row no-gutters">
+            <div class="col-sm-3">
+                <hr />
+                <div class="footer-list">
+                    <div class="list-header">Customer Service</div>
+                    <a href="#">FAQ</a><br />
+                    <a href="#">Track Order</a><br />
+                    <a href="#">Sitemap</a><br />
+                    <a href="#">Feedback</a><br />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <hr />
+                <div class="footer-list">
+                    <div class="list-header">Rules and Policy</div>
+                    <a href="#">Privacy Policy</a><br />
+                    <a href="#">Payment Method</a><br />
+                    <a href="#">Terms of Service</a><br />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <hr />
+                <div class="footer-list">
+                    <div class="list-header">Contact</div>
+                    Address: #<br />
+                    Telephone: (024)<br />
+                    Fax: #<br />
+                    Email: #<br />
+                    Open hours: #
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .list-header {
+                font-size: 15px;
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+            .footer-navbar {
+                background-color: limegreen;
+                color: white;
+            }
+
+            a {
+                color: white;
+            }
+
+            .footer-list {
+                padding-left: 50px;
+            }
+        </style>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</body>
+</html>

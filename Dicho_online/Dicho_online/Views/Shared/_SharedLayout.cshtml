@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @using System.Web.Optimization
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!--navbar-->
+    <nav class="navbar navbar-toggleable-sm navbar-expand-sm fixed-top navbar-light" style="background-color:limegreen;">
+        <a class="navbar-brand color-me" href="#">Logo</a>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
+            <span class="navbar-toggler-icon color-me"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navb" style="">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link color-me" href="#">Link</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
+            </form>
+        </div>
+        <style>
+            .color-me {
+                color: white;
+            }
+        </style>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    <footer class="footer-navbar">
+        <div class="row">
+            <div class="col-sm-4" style="">
+                <hr />
+                <div class="list-header">Customer Service</div>
+                <a href="#">FAQ</a><br />
+                <a href="#">Track Order</a><br />
+                <a href="#">Sitemap</a><br />
+                <a href="#">Feedback</a><br />
+            </div>
+            <div class="col-sm-4">
+                <hr />
+                <div class="list-header">Rules and Policy</div>
+                <a href="#">Privacy Policy</a><br />
+                <a href="#">Payment Method</a><br />
+                <a href="#">Terms of Service</a><br />
+            </div>
+            <div class="col-sm-4">
+                <hr />
+                <div class="list-header">Contact</div>
+                Address: #<br />
+                Telephone: (024)<br />
+                Fax: #<br />
+                Email: #<br />
+                Open hours: #
+            </div>
+        </div>
+
+        <style>
+            .list-header {
+                font-size: 15px;
+                font-weight: bold;
+            }
+
+            .footer-navbar {
+                background-color: limegreen;
+                color: white;
+            }
+
+            a {
+                color: white;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
