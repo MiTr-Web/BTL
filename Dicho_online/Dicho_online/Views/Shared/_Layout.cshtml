@@ -12,9 +12,9 @@
 </head>
 <body>
     <!--navbar-->
-    <nav class="navbar navbar-toggleable-sm navbar-expand-sm fixed-top navbar-dark" style="background-color:limegreen;">
+    <nav class="navbar navbar-toggleable-md navbar-expand-md fixed-top navbar-dark" style="background-color:limegreen;">
         <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
+        <button class="navbar-toggler navbar-toggler-right collapsed active" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -29,16 +29,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control" type="text" placeholder="Search">
-                <button class="btn btn-success my-2 my-sm-0" type="button">
+            <form class="form-inline mr-md-auto search">
+                <input id="search-text" class="form-control" type="text" placeholder="Search" style="display:inline">
+                <button class="btn" type="button" style="display:inline">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
+            <div class="user">
+                <a href="#" onclick="location.href='@Url.Action("Index", "Login")'">Login</a>
+            </div>
         </div>
         <style>
-            @@media screen and (min-width: 480px) {
+            @@media screen and (min-width: 992px){
                 .navbar {
                     padding: 0;
                     padding-left: 20px;
@@ -53,9 +62,67 @@
                     padding-bottom: 7px;
                     padding-top: 7px;
                 }
+
+                .search {
+                    position: relative;
+                    left: 10%;
+                }
+
+                #search-text {
+                    width: 400px;
+                }
             }
-            .form-control{
-                border-radius:0;
+
+            @@media only screen and (min-width: 400px) and (max-width: 768px) {
+                .nav-link {
+                    border-bottom: 1px solid white;
+                }
+
+                .navbar-collapse {
+                    border-top: 2px solid white;
+                    margin-top: 10px;
+                }
+
+                .navbar {
+                    border-bottom: 2px solid black;
+                    width: 100%;
+                }
+
+                .search {
+                    padding-top: 30px;
+                }
+
+                #search-text {
+                    width: 85%;
+                }
+
+                .user{
+                    padding-top: 20px;
+                }
+            }
+
+            @@media only screen and (min-width: 769px) and (max-width: 991px) {
+                .search {
+                    position: relative;
+                    left: 15%;
+                }
+            }
+
+            .form-control {
+                border-radius: 0;
+            }
+
+            .btn {
+                border-radius: 0;
+            }
+
+            .user {
+                padding-right: 30px;
+                float: right;
+            }
+
+            .nav-link {
+                opacity: unset;
             }
         </style>
         <script>
@@ -119,6 +186,7 @@
 
             .footer-list {
                 padding-left: 50px;
+                padding-bottom: 30px;
             }
         </style>
     </footer>

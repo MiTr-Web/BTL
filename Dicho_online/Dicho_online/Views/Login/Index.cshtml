@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    @@media only screen (min-width:992px) {
+    }
+
+    table th {
+        border: 1px solid black;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .panel {
+        border: 1px solid black;
+    }
+
+    .input-group-text {
+        border-radius: 0;
+    }
+
+    .list-group-item > a {
+        color: black;
+        font-weight: bolder;
+    }
+
+    .active {
+        background: limegreen !important;
+    }
+
+    input {
+        padding-left: 10px;
+        height: 40px;
+    }
+
+    .register {
+        display: none;
+    }
+
+    #tos {
+        color: blue;
+        font-weight: 500;
+    }
+
+    .breadcrumb {
+        padding-bottom: 8px;
+    }
+
+    .breadcrumb a {
+        color: black;
+    }
+
+    .breadcrumb > li.active {
+        background: none !important;
+        color: blue;
+        font-weight: 500;
+    }
+
+    .breadcrumb > li + li:before {
+        content: "\3E";
+        color: black;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <ol class="breadcrumb">
+        <li><a href="#" onclick="location.href='@Url.Action("Index","Home")'">Home&ensp;</a></li>
+
+        <li class="active">
+            <span>Login</span>
+        </li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-2 vertical">
+            <ul class="list-group">
+                <li class="list-group-item active" id="login"><a href="" onclick="return show_log();">Login</a></li>
+                <li class="list-group-item" id="register"><a href="" onclick="return show_reg();">Register</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10 panel">
+            <div class="login">
+                <div>
+                    <p><b>If you already have an account, login here!</b></p>
+                    <p><b>Else click on Register on the left to sign up now.</b></p>
+                    <form class="form-group">
+                        <div class="form-group">
+                            <label><b>Username</b></label><br />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                <input type="text" name="username" placeholder="Your username" /><br />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><b>Password</b></label><br />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                <input type="password" name="password" placeholder="Your password" /><br />
+                            </div>
+                        </div>
+                        <button type="submit" name="btnSubmit"><span><i class="fas fa-sign-in-alt"></i></span> Login</button>
+                    </form>
+                </div>
+            </div>
+            <div class="register">
+                <form class="form-group">
+                    <label><b>Email</b></label><br />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+                        <input type="text" name="reg_username" placeholder="Your email address" /><br />
+                    </div>
+                    <label><b>Password</b></label><br />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                        <input type="password" name="reg_password" placeholder="Your password" /><br />
+                    </div>
+                    <label><b>Confirm password</b></label><br />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                        <input type="password" name="reg_confirm_password" placeholder="Confirm password" /><br />
+                    </div>
+                    <input type="checkbox" class="align-middle" name="reg_tos_checkbox">  I have read and agree to <a href="" id="tos">Terms of Service</a>
+                    <br />
+                    <button type="submit" name="reg_btnSubmit"><span><i class="fas fa-check-circle"></i></span>Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function show_reg() {
+        $(".panel").slideUp(500).slideDown(500);
+        $(".login").hide(function () {
+            $("#login").removeClass("active");
+            $("#register").addClass("active");
+            $(".register").show();
+        });
+        return false;
+    }
+    function show_log() {
+        $(".panel").slideUp(500).slideDown(500);
+        $(".register").hide(function () {
+            $("#register").removeClass("active");
+            $("#login").addClass("active");
+            $(".login").show();
+        });
+        return false;
+    }
+</script>
