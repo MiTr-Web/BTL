@@ -5,7 +5,19 @@
 }
 
 <style>
-    @@media only screen (min-width:992px) {
+    @@media screen and (max-width:768px) {
+        .vertical {
+            padding: 0;
+            padding-bottom: 20px;
+        }
+    }
+
+    .list-group-item{
+        border-radius:0 !important;
+    }
+
+    form{
+        padding-bottom: 8px;
     }
 
     table th {
@@ -18,6 +30,7 @@
 
     .panel {
         border: 1px solid black;
+        padding-left: 30px;
     }
 
     .input-group-text {
@@ -51,19 +64,24 @@
         padding-bottom: 8px;
     }
 
-    .breadcrumb a {
-        color: black;
-    }
+        .breadcrumb a {
+            color: black;
+        }
 
-    .breadcrumb > li.active {
-        background: none !important;
-        color: blue;
-        font-weight: 500;
-    }
+        .breadcrumb > li.active {
+            background: none !important;
+            color: blue;
+            font-weight: 500;
+        }
 
-    .breadcrumb > li + li:before {
-        content: "\3E";
-        color: black;
+        .breadcrumb > li + li:before {
+            content: "\3E";
+            color: black;
+        }
+
+    .reg_alert {
+        margin: 0;
+        padding-top: 8px;
     }
 </style>
 
@@ -84,51 +102,73 @@
                 <li class="list-group-item" id="register"><a href="" onclick="return show_reg();">Register</a></li>
             </ul>
         </div>
-        <div class="col-md-10 panel">
-            <div class="login">
-                <div>
-                    <p><b>If you already have an account, login here!</b></p>
-                    <p><b>Else click on Register on the left to sign up now.</b></p>
-                    <form class="form-group">
-                        <div class="form-group">
-                            <label><b>Username</b></label><br />
+        <div class="col-md-10" style="height:286px;padding:0;">
+            <div class="panel">
+                <div class="login">
+                    <div>
+                        @if (TempData["AlertMsg1"] != null)
+                        {
+                            <p style="color:red"><b>@TempData["AlertMsg1"]</b></p>
+                            <p style="color:red"><b>@TempData["AlertMsg2"]</b></p>
+                        }
+                        else
+                        {
+                            <p><b>If you already have an account, login here!</b></p>
+                            <p><b>Else click on Register on the left to sign up now.</b></p>
+                        }                       
+                        @using (Html.BeginForm("LoginAction", "Login", FormMethod.Post))
+                        {
+                            <form class="form-group">
+                                <div class="form-group">
+                                    <label><b>Email</b></label><br />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                        <input type="email" name="username" placeholder="Your username" /><br />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><b>Password</b></label><br />
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                        <input type="password" name="password" placeholder="Your password" /><br />
+                                    </div>
+                                </div>
+                                <button type="submit" name="btnSubmit"><span><i class="fas fa-sign-in-alt"></i></span> Login</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+                <div class="register">
+                    @using (Html.BeginForm("RegisterAction", "Login", FormMethod.Post))
+                    {
+                        <form id="reg_form" class="form-group" onsubmit="check_form();">
+                            <label><b>Email</b></label><br />
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
-                                <input type="text" name="username" placeholder="Your username" /><br />
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+                                <input id="reg_u" type="email" name="reg_username" placeholder="Your email address" onblur="isUserNull();" />
+                                <p class="reg_alert" id="reg_alert_1" style="font-style:italic;color:red;"></p>
+                                <br />
                             </div>
-                        </div>
-                        <div class="form-group">
                             <label><b>Password</b></label><br />
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                                <input type="password" name="password" placeholder="Your password" /><br />
+                                <input id="reg_pw" type="password" name="reg_password" placeholder="Your password" onblur="isPassNull();" onkeyup="isPassNull();" />
+                                <p class="reg_alert" id="reg_alert_2" style="font-style:italic;color:red;"></p>
+                                <br />
                             </div>
-                        </div>
-                        <button type="submit" name="btnSubmit"><span><i class="fas fa-sign-in-alt"></i></span> Login</button>
-                    </form>
+                            <label><b>Confirm password</b></label><br />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                <input id="reg_con_pw" type="password" name="reg_confirm_password" placeholder="Confirm password" onkeyup="isConPassNull();" />
+                                <p class="reg_alert" id="reg_alert_3" style="font-style:italic;color:red;"></p>
+                                <br />
+                            </div>
+                            <input id="checkTOS" type="checkbox" class="align-middle" name="reg_tos_checkbox" value="checked" onchange="isCheckTOS();">  I have read and agree to <a href="" id="tos">Terms of Service</a><span id="toscheck" style="color:red;font-weight:bold"></span>
+                            <br />
+                            <button id="reg_btn" type="submit" name="reg_btnSubmit"><span><i class="fas fa-check-circle"></i></span>Sign up</button>
+                        </form>
+                    }
                 </div>
-            </div>
-            <div class="register">
-                <form class="form-group">
-                    <label><b>Email</b></label><br />
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                        <input type="text" name="reg_username" placeholder="Your email address" /><br />
-                    </div>
-                    <label><b>Password</b></label><br />
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                        <input type="password" name="reg_password" placeholder="Your password" /><br />
-                    </div>
-                    <label><b>Confirm password</b></label><br />
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                        <input type="password" name="reg_confirm_password" placeholder="Confirm password" /><br />
-                    </div>
-                    <input type="checkbox" class="align-middle" name="reg_tos_checkbox">  I have read and agree to <a href="" id="tos">Terms of Service</a>
-                    <br />
-                    <button type="submit" name="reg_btnSubmit"><span><i class="fas fa-check-circle"></i></span>Sign up</button>
-                </form>
             </div>
         </div>
     </div>
@@ -154,4 +194,53 @@
         });
         return false;
     }
+
+    function isUserNull() {
+        if (document.getElementById("reg_u").value === "") {
+            document.getElementById("reg_alert_1").innerHTML = "&ensp;You must not left your email blank!";
+        }
+        else if (document.getElementById("reg_u").value !== "") {
+            document.getElementById("reg_alert_1").innerHTML = "";
+        }
+    }
+    function isPassNull() {
+        if (document.getElementById("reg_pw").value === "") {
+            document.getElementById("reg_alert_2").innerHTML = "&ensp;You must not left your password blank!";
+        }
+        else if (document.getElementById("reg_pw").value !== "") {
+            document.getElementById("reg_alert_2").innerHTML = "";
+        }
+    }
+    function isConPassNull() {
+        if (document.getElementById("reg_con_pw").value === "" || document.getElementById("reg_con_pw").value !== document.getElementById("reg_pw").value) {
+            document.getElementById("reg_alert_3").innerHTML = "&ensp;Check your password again!";
+        }
+        else if (document.getElementById("reg_con_pw").value !== "") {
+            document.getElementById("reg_alert_3").innerHTML = "";
+        }
+    }
+    function isCheckTOS() {
+        if (document.getElementById("checkTOS").checked === true) {
+            document.getElementById("toscheck").innerHTML = "";
+            return true;
+        }
+        else {
+            document.getElementById("toscheck").innerHTML = "&ensp; READING and ACCEPTING our ToS is important!";
+            return false;
+        }
+    }
+    function check_form() {
+        if(document.getElementById("reg_u").value==="" 
+            || document.getElementById("reg_pw")===""
+            || document.getElementById("reg_con_pw")===""
+            || document.getElementById("reg_pw") === document.getElementById("reg_con_pw")
+            || isCheckTOS===false)
+        {
+            isUserNull();
+            isPassNull();
+            isConPassNull();
+            isCheckTOS();
+        }        
+    }
+
 </script>

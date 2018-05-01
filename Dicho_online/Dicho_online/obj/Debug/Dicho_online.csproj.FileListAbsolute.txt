@@ -179,6 +179,14 @@ C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\System.Web.R
 C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\System.Web.WebPages.xml
 C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\System.Web.WebPages.Razor.xml
-C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\obj\Debug\Dicho_online.csprojResolveAssemblyReference.cache
 C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\obj\Debug\Dicho_online.dll
 C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\obj\Debug\Dicho_online.pdb
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\EntityFramework.dll
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\EntityFramework.SqlServer.dll
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\EntityFramework.xml
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\EntityFramework.SqlServer.xml
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\obj\Debug\Dicho_online.csprojResolveAssemblyReference.cache
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\PagedList.dll
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\PagedList.Mvc.dll
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\PagedList.xml
+C:\Users\Trung\Desktop\BTL_CN_WEB\BTL\Dicho_online\Dicho_online\bin\PagedList.Mvc.xml

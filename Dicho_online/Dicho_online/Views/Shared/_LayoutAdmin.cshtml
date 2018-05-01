@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .header {
+            width: 100%;
+            width: 100vw;
+            height: 50px;
+            background-color: #23282d;
+            color: white;
+            border-bottom: 0;
+            position:fixed;
+        }
+
+        #title {
+            width: 17%;
+        }
+
+        #usercontrol {
+            width: 80%;
+            text-align: right;
+        }
+
+            #usercontrol a {
+                color: white;
+            }
+
+        #title, #usercontrol {
+            display: inline-block;
+        }
+
+        #admin-home {
+            color: white;
+            text-decoration: unset;
+            font-weight: 500;
+        }
+
+        #nav-function {
+            width: 17%;
+            height: 612px;
+            background-color: #444;
+            position: fixed;
+            top: 50px;           
+        }
+
+        .nf-item {
+            line-height: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        #nav-function,#content{
+            display: inline-block;
+        }
+
+        #content {
+            width: 100%;
+            padding-left: 19%;
+            padding-right: 30px;
+            padding-top: 50px;
+        }
+    </style>
+    @using System.Web.Optimization
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!--header bar-->
+    <div class="header">
+        <div id="title" style="text-align:center;line-height:50px;border-right:1px solid white;">
+            <a href="" id="admin-home">Administrator</a>
+        </div>
+        <div id="usercontrol">
+            <a href="#" onclick="location.href='@Url.Action("LogOut", "Login")'">Logout</a>
+        </div>
+    </div>
+    <!---->
+    <!--left vertical nav-->
+    <div id="body-wrapper">
+        <div id="nav-function">
+            <div class="nf-item">
+                <a href=""></a>
+            </div>
+            <div class="nf-item">
+                <a href="#" onclick="location.href='@Url.Action("Index", "Admin")'">Home</a>
+            </div>
+            <div class="nf-item">
+                <a href="#" onclick="location.href='@Url.Action("Categories","Admin")'">Categories</a>
+            </div>
+            <div class="nf-item">
+                <a href="#" onclick="location.href='@Url.Action("Suppliers","Admin")'">Suppliers</a>
+            </div>
+            <div class="nf-item">
+                <a href="#" onclick="location.href='@Url.Action("Products","Admin")'">Products</a>
+            </div>
+        </div>
+        <div id="content">
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
