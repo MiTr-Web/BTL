@@ -15,7 +15,11 @@ namespace Dicho_online.Controllers
         // GET: Home
         public ActionResult Index(int? page)
         {
-            return View(db.Products.ToList().ToPagedList(page ?? 1, 2));
+            ViewModel vm = new ViewModel();
+            vm.Categories = db.Categories.ToList();
+            vm.Products = db.Products.ToList().ToPagedList(page ?? 1, 2);
+            vm.Suppliers = db.Suppliers.ToList();
+            return View(vm);
         }
         public ActionResult LoggedIn()
         {

@@ -1,6 +1,7 @@
-﻿@model IPagedList<Dicho_online.Models.Products>
-@using PagedList;
+﻿@using PagedList;
 @using PagedList.Mvc;
+@model Dicho_online.Models.ViewModel
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -26,11 +27,12 @@
 <!---->
 <div id="ddl-sort">
     BEST SELLER
-    <select onchange="">
+    <select id="sort">
         <option disabled selected hidden>Sort by...</option>
         <option value="asc">Price ascending</option>
         <option value="des">Price descending</option>
     </select>
+    
 </div>
 
 <div class="wrapper">
@@ -38,7 +40,7 @@
         
     }
     
-        @foreach (var item in Model)
+        @foreach (var item in Model.Products)
         {
             <div class="item">
                 <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="200px" />
@@ -50,7 +52,7 @@
             </div>
             }
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new
+    @Html.PagedListPager(Model.Products, page => Url.Action("Index", new
 {
     page
 }))
