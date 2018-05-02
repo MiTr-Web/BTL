@@ -43,7 +43,16 @@
                 </button>
             </form>
             <div class="user">
-                <a href="#" onclick="location.href='@Url.Action("Index", "Login")'">Login</a>
+                @if (Session["username"] != null)
+                {
+                    <a href="#" onclick="">@Session["username"]</a>
+                    <span>&ensp;</span>                 
+                    <a href="#" onclick="location.href='@Url.Action("LogOut", "Login")'">Logout</a>
+                }
+                else
+                {
+                    <a href="#" onclick="location.href='@Url.Action("Index", "Login")'">Login</a>
+                }
             </div>
         </div>
         <style>
