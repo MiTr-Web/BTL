@@ -12,14 +12,12 @@ namespace Dicho_online.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class sysdiagram
     {
-        public string Username { get; set; }
-        public string HashString { get; set; }
-        public string Salt { get; set; }
-        public string CustomerID { get; set; }
-        public Nullable<int> Privilege { get; set; }
-    
-        public virtual Customer Customer { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

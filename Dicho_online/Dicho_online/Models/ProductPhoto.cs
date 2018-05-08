@@ -12,14 +12,12 @@ namespace Dicho_online.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class ProductPhoto
     {
-        public string Username { get; set; }
-        public string HashString { get; set; }
-        public string Salt { get; set; }
-        public string CustomerID { get; set; }
-        public Nullable<int> Privilege { get; set; }
+        public int ID { get; set; }
+        public string PhotoPath { get; set; }
+        public string ProductID { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
