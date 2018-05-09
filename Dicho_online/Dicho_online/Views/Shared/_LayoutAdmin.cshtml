@@ -4,6 +4,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    
+    @using System.Web.Optimization
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     <style>
         .header {
             width: 100%;
@@ -12,7 +16,7 @@
             background-color: #23282d;
             color: white;
             border-bottom: 0;
-            position:fixed;
+            position: fixed;
         }
 
         #title {
@@ -43,7 +47,7 @@
             height: 612px;
             background-color: #444;
             position: fixed;
-            top: 50px;           
+            top: 50px;
         }
 
         .nf-item {
@@ -52,7 +56,7 @@
             color: white;
         }
 
-        #nav-function,#content{
+        #nav-function, #content {
             display: inline-block;
         }
 
@@ -63,9 +67,7 @@
             padding-top: 50px;
         }
     </style>
-    @using System.Web.Optimization
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <!--header bar-->
@@ -88,13 +90,13 @@
                 <a href="#" onclick="location.href='@Url.Action("Index", "Admin")'">Home</a>
             </div>
             <div class="nf-item">
-                <a href="#" onclick="location.href='@Url.Action("Categories","Admin")'">Categories</a>
+                <a href="#" onclick="location.href='@Url.Action("Index","Categories")'">Categories</a>
             </div>
             <div class="nf-item">
-                <a href="#" onclick="location.href='@Url.Action("Suppliers","Admin")'">Suppliers</a>
+                <a href="#" onclick="location.href='@Url.Action("Index","Suppliers")'">Suppliers</a>
             </div>
             <div class="nf-item">
-                <a href="#" onclick="location.href='@Url.Action("Products","Admin")'">Products</a>
+                <a href="#" onclick="location.href='@Url.Action("Index","Products")'">Products</a>
             </div>
         </div>
         <div id="content">

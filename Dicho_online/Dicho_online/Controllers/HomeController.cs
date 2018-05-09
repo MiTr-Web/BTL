@@ -11,16 +11,38 @@ namespace Dicho_online.Controllers
 {
     public class HomeController : Controller
     {
-        private DB_Context db = new DB_Context();
+        private FoodMarketEntities db = new FoodMarketEntities();
         // GET: Home
         public ActionResult Index(int? page)
         {
-            ViewModel vm = new ViewModel();
-            vm.Categories = db.Categories.ToList();
-            vm.Products = db.Products.ToList().ToPagedList(page ?? 1, 2);
-            vm.Suppliers = db.Suppliers.ToList();
-            return View(vm);
+            HomeViewModel model = new HomeViewModel();
+            model.productList = db.Products.ToList().ToPagedList(page ?? 1, 2);
+            model.priceSort = getPriceSortList();
+            return View(model);
         }
+
+        public List<string> getPriceSortList()
+        {
+            List<string> list = new List<string>();
+            list.Add("Sort...");
+            list.Add("Price ascending");
+            list.Add("Price descending");
+            return list;
+        }
+
+        public ActionResult Sort(string sort)
+        {
+            if(sort == "Price ascending")
+            {
+
+            }
+            else if (sort == "Price descending")
+            {
+
+            }
+            return View("Index");
+        }
+        
         public ActionResult LoggedIn()
         {
             return View(db.Categories.ToList());

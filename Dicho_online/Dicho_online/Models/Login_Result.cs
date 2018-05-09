@@ -10,16 +10,10 @@
 namespace Dicho_online.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class User
+    public partial class Login_Result
     {
-        public string Username { get; set; }
-        public string HashString { get; set; }
-        public string Salt { get; set; }
         public string CustomerID { get; set; }
         public Nullable<int> Privilege { get; set; }
-    
-        public virtual Customer Customer { get; set; }
     }
 }
