@@ -5,4 +5,20 @@
 }
 
 <h2>Hello @Session["username"]</h2>
-
+<br /><br />
+<center><h4>Danh sách của các chủng loại mặt hàng</h4></center><br />
+<div class="container">
+    <table class="table" align="center" border="1" style="border-collapse: collapse">
+        <tr bgcolor="green" color="yellow">
+            <th> # </th>
+            <th> Category </th>
+        </tr>
+        @for (int i=0; i<10; i++)
+        {
+            <tr>
+                <td>i</td>
+                <td> test</td>
+            </tr>
+        }
+    </table>
+</div>

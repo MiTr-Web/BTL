@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .wrapper {
+    }
+
+    .item {
+        display: inline-block;
+        border: 1px solid black;
+    }
+
+    .pagination > li a {
+        color: blue;
+    }
+
+    #ddl-sort {
+        padding-bottom: 20px;
+    }
+</style>
+
+<h2>Chi tiết</h2>
+<br />
+<div class="container" style="width: 96%">
+    <div style="font-size: 26px">
+        <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="550" height="500" />
+    </div>
+    <div style="width: 48%; float: right;">
+        <ul class="list-group" >
+            <li>Product name: </li>
+            <li>Company: </li>
+            <li>Category: </li>
+            <li>Quantity per unit: </li>
+            <li>Unit price: </li>
+            <li>In stock: </li>
+            <li>On order: </li>
+            <li>Status: </li>
+        </ul>
+    </div>
+</div>

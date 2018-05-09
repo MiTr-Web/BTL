@@ -17,5 +17,10 @@ namespace Dicho_online
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //public static void RegisterRoutes(RouteCollection routes)
+        //{
+        //    routes.MapRoute("MyRoute", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+        //}
     }
 }
