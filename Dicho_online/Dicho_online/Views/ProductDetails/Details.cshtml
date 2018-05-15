@@ -1,0 +1,40 @@
+﻿@using Dicho_online.Models
+@model Dicho_online.Models.HomeViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #wrapper{
+        width: 50%;
+        margin-left: 70px;
+        margin-top: 50px;
+        text-align:center;
+    }
+    #details{
+        float:right;
+    }
+    .detail{
+        text-align: left;
+    }
+    h3{
+        color: green;
+    }
+</style>
+
+<div id="wrapper">
+    <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="400px" />
+    <div id="details">
+        @foreach (var item in Model.product_detail)
+        {
+            <div class="detail">
+                @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br /><br />
+                <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
+                <h3><i class="fas fa-dollar-sign"></i> @Html.DisplayFor(modelItem => item.UnitPrice)</h3>
+            </div>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">

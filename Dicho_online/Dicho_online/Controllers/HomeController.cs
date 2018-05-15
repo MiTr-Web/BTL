@@ -27,8 +27,7 @@ namespace Dicho_online.Controllers
             return list;
         }
 
-        [HttpPost]
-        public ActionResult Sort()
+        public ActionResult Sort(string order)
         {
             string sort = Request.Form["ddlPrice"].ToString();
             /*ViewBag.PriceSortAscParm = String.IsNullOrEmpty(sort) ? "priceSort=Price ascending" : "";

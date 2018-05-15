@@ -9,6 +9,7 @@ namespace Dicho_online.Models
     public class HomeViewModel
     {
         public IPagedList<Product> productList { get; set; }
+        public IEnumerable<Product> product_detail { get; set; }
         public IEnumerable<string> priceSort { get; set; }
     }
 }

@@ -15,6 +15,15 @@
         border: 1px solid black;
     }
 
+    .link {
+        color: black;
+    }
+
+        .link:hover {
+            color: blue;
+            text-decoration: none;
+        }
+
     .pagination > li a {
         color: blue;
     }
@@ -38,14 +47,19 @@
     @foreach (var item in Model.productList)
     {
         <div class="item">
-            <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="200px" />
-            <div class="detail">
-                @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br />
-                @Html.DisplayFor(modelItem => item.ProductName)<br />
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </div>
+            <a class="link" href="@Url.Action("Details","ProductDetails",new {id=item.ProductID })">
+                <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="200px" />
+                <div class="detail">
+                    @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br />
+                    @Html.DisplayFor(modelItem => item.ProductName)<br />
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </div>
+            </a>
         </div>
+
     }
 </div>
 @Html.PagedListPager(Model.productList, page => Url.Action("Index", new { page }))
+
+
 
