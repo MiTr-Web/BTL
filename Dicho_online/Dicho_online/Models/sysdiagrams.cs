@@ -10,10 +10,14 @@
 namespace Dicho_online.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Login_Result
+    public partial class sysdiagrams
     {
-        public string CustomerID { get; set; }
-        public Nullable<int> Privilege { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace Dicho_online.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Customers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public Customers()
         {
-            this.Orders = new HashSet<Order>();
-            this.Users = new HashSet<User>();
+            this.Orders = new HashSet<Orders>();
+            this.Users = new HashSet<Users>();
         }
     
         public string CustomerID { get; set; }
@@ -28,10 +28,10 @@ namespace Dicho_online.Models
         public Nullable<System.DateTime> JoinDate { get; set; }
         public string MembershipTitle { get; set; }
     
-        public virtual CustomerTitle CustomerTitle { get; set; }
+        public virtual CustomerTitles CustomerTitles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

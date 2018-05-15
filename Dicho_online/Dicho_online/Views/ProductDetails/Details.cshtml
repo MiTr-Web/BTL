@@ -1,0 +1,31 @@
+﻿@model Dicho_online.Models.Products
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<br />
+<div class="container">
+    <div>
+        <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="550" height="500"/>
+    </div>
+    <div>
+        <ul>
+            <li>Product Name: @Model.ProductName</li>
+            <li>Supplier: @Model.Suppliers.CompanyName</li>
+            <li>Category: @Model.Categories.CategoryName</li>
+            <li>Quantity per unit: @Model.QuantityPerUnit</li>
+            <li>Unit price: @Model.UnitPrice</li>
+            <li>In stock: @Model.InStock</li>
+            <li>On order: @Model.OnOrder</li>
+            <li>Status: @Model.Discontinue</li>
+        </ul>
+        <br />
+        <a href="/ProductDetails/AddCart?id=@Model.ProductID">
+            <div style="background-color: brown; color: white">
+                <p>Add Cart</p>
+            </div>
+        </a>
+    </div>
+</div>

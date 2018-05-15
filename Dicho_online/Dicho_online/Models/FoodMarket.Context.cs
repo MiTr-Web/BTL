@@ -27,58 +27,19 @@ namespace Dicho_online.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<CustomerTitle> CustomerTitles { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<EmployeeTitle> EmployeeTitles { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<CustomerTitles> CustomerTitles { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<EmployeeTitles> EmployeeTitles { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<ProductPhotos> ProductPhotos { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
-    
-        public virtual ObjectResult<string> getSalt(string username)
-        {
-            var usernameParameter = username != null ?
-                new ObjectParameter("username", username) :
-                new ObjectParameter("username", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("getSalt", usernameParameter);
-        }
-    
-        public virtual ObjectResult<Login_Result> Login(string username, string hashstring)
-        {
-            var usernameParameter = username != null ?
-                new ObjectParameter("username", username) :
-                new ObjectParameter("username", typeof(string));
-    
-            var hashstringParameter = hashstring != null ?
-                new ObjectParameter("hashstring", hashstring) :
-                new ObjectParameter("hashstring", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Login_Result>("Login", usernameParameter, hashstringParameter);
-        }
-    
-        public virtual int Register(string username, string hashstring, string salt)
-        {
-            var usernameParameter = username != null ?
-                new ObjectParameter("username", username) :
-                new ObjectParameter("username", typeof(string));
-    
-            var hashstringParameter = hashstring != null ?
-                new ObjectParameter("hashstring", hashstring) :
-                new ObjectParameter("hashstring", typeof(string));
-    
-            var saltParameter = salt != null ?
-                new ObjectParameter("salt", salt) :
-                new ObjectParameter("salt", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Register", usernameParameter, hashstringParameter, saltParameter);
-        }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

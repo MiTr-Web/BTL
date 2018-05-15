@@ -12,20 +12,21 @@ namespace Dicho_online.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerTitle
+    public partial class Suppliers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CustomerTitle()
+        public Suppliers()
         {
-            this.Customers = new HashSet<Customer>();
+            this.Products = new HashSet<Products>();
         }
     
-        public string CustomerTitleID { get; set; }
-        public string TitleName { get; set; }
-        public string CustomerID { get; set; }
-        public Nullable<decimal> Discount { get; set; }
+        public string SupplierID { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Homepage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

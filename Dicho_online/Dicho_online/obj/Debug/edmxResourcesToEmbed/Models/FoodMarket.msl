@@ -2,7 +2,7 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="FoodMarketModelStoreContainer" CdmEntityContainer="FoodMarketEntities">
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="FoodMarketModel.Category">
+      <EntityTypeMapping TypeName="FoodMarketModel.Categories">
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -11,7 +11,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="FoodMarketModel.Customer">
+      <EntityTypeMapping TypeName="FoodMarketModel.Customers">
         <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -23,7 +23,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CustomerTitles">
-      <EntityTypeMapping TypeName="FoodMarketModel.CustomerTitle">
+      <EntityTypeMapping TypeName="FoodMarketModel.CustomerTitles">
         <MappingFragment StoreEntitySet="CustomerTitles">
           <ScalarProperty Name="CustomerTitleID" ColumnName="CustomerTitleID" />
           <ScalarProperty Name="TitleName" ColumnName="TitleName" />
@@ -33,7 +33,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Employees">
-      <EntityTypeMapping TypeName="FoodMarketModel.Employee">
+      <EntityTypeMapping TypeName="FoodMarketModel.Employees">
         <MappingFragment StoreEntitySet="Employees">
           <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -50,7 +50,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="EmployeeTitles">
-      <EntityTypeMapping TypeName="FoodMarketModel.EmployeeTitle">
+      <EntityTypeMapping TypeName="FoodMarketModel.EmployeeTitles">
         <MappingFragment StoreEntitySet="EmployeeTitles">
           <ScalarProperty Name="TitleID" ColumnName="TitleID" />
           <ScalarProperty Name="TitleName" ColumnName="TitleName" />
@@ -58,7 +58,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderDetails">
-      <EntityTypeMapping TypeName="FoodMarketModel.OrderDetail">
+      <EntityTypeMapping TypeName="FoodMarketModel.OrderDetails">
         <MappingFragment StoreEntitySet="OrderDetails">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -67,7 +67,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="FoodMarketModel.Order">
+      <EntityTypeMapping TypeName="FoodMarketModel.Orders">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -82,7 +82,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ProductPhotos">
-      <EntityTypeMapping TypeName="FoodMarketModel.ProductPhoto">
+      <EntityTypeMapping TypeName="FoodMarketModel.ProductPhotos">
         <MappingFragment StoreEntitySet="ProductPhotos">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
@@ -91,7 +91,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="FoodMarketModel.Product">
+      <EntityTypeMapping TypeName="FoodMarketModel.Products">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -106,7 +106,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Suppliers">
-      <EntityTypeMapping TypeName="FoodMarketModel.Supplier">
+      <EntityTypeMapping TypeName="FoodMarketModel.Suppliers">
         <MappingFragment StoreEntitySet="Suppliers">
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -117,7 +117,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="FoodMarketModel.sysdiagram">
+      <EntityTypeMapping TypeName="FoodMarketModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -128,7 +128,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="FoodMarketModel.User">
+      <EntityTypeMapping TypeName="FoodMarketModel.Users">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="HashString" ColumnName="HashString" />
@@ -153,16 +153,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="getSalt" FunctionName="FoodMarketModel.Store.getSalt" />
-    <FunctionImportMapping FunctionImportName="Login" FunctionName="FoodMarketModel.Store.Login">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="FoodMarketModel.Login_Result">
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="Privilege" ColumnName="Privilege" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Register" FunctionName="FoodMarketModel.Store.Register" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="FoodMarketModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="FoodMarketModel.Store.sp_creatediagram" />
     <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="FoodMarketModel.Store.sp_dropdiagram" />

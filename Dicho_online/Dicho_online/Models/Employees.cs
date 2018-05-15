@@ -12,18 +12,28 @@ namespace Dicho_online.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeTitle
+    public partial class Employees
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EmployeeTitle()
+        public Employees()
         {
-            this.Employees = new HashSet<Employee>();
+            this.Orders = new HashSet<Orders>();
         }
     
-        public string TitleID { get; set; }
-        public string TitleName { get; set; }
+        public string EmployeeID { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string IDNumber { get; set; }
+        public Nullable<System.DateTime> Birthday { get; set; }
+        public Nullable<System.DateTime> HiredDay { get; set; }
+        public string Address { get; set; }
+        public string MobilePhone { get; set; }
+        public string HomePhone { get; set; }
+        public string PhotoPath { get; set; }
+        public string Title { get; set; }
     
+        public virtual EmployeeTitles EmployeeTitles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

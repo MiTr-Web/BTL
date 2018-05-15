@@ -17,7 +17,7 @@ namespace Dicho_online.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
+            var products = db.Products.Include(p => p.Categories).Include(p => p.Suppliers);
             return View(products.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace Dicho_online.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Products product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -49,7 +49,7 @@ namespace Dicho_online.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Products product)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace Dicho_online.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Products product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -85,7 +85,7 @@ namespace Dicho_online.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Products product)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Dicho_online.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Products product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -118,7 +118,7 @@ namespace Dicho_online.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Product product = db.Products.Find(id);
+            Products product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

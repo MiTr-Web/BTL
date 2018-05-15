@@ -221,24 +221,26 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductDetailsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Category.cs">
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Categories.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs">
+    <Compile Include="Models\Customers.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerTitle.cs">
+    <Compile Include="Models\CustomerTitles.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs">
+    <Compile Include="Models\Employees.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EmployeeTitle.cs">
+    <Compile Include="Models\EmployeeTitles.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FoodMarket.Context.cs">
@@ -257,19 +259,16 @@
       <DependentUpon>FoodMarket.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\HomeViewModel.cs" />
-    <Compile Include="Models\Login_Result.cs">
+    <Compile Include="Models\OrderDetails.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Order.cs">
+    <Compile Include="Models\Orders.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\OrderDetail.cs">
+    <Compile Include="Models\ProductPhotos.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>FoodMarket.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductPhoto.cs">
+    <Compile Include="Models\Products.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
@@ -278,13 +277,13 @@
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Supplier.cs">
+    <Compile Include="Models\Suppliers.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\Users.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View_Product.cs">
@@ -333,6 +332,7 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\ProductDetails\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
