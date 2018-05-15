@@ -25,11 +25,11 @@
 </style>
 
 <!---->
-@using (Html.BeginForm("Sort", "Home", FormMethod.Get))
+@using (Html.BeginForm("Sort", "Home", FormMethod.Post))
 {
-    <div>
-        @Html.DropDownListFor(s => s.priceSort, new SelectList(Model.priceSort, "Sort"), new { onchange = "this.form.submit();" })
-    </div>
+    <form id="ddlPrice">
+        @Html.DropDownList("ddlPrice", new SelectList(Model.priceSort), new { onchange = "this.form.submit();" })
+    </form>
 }
 <br />
 

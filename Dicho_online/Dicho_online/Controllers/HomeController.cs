@@ -1,11 +1,8 @@
 ﻿using Dicho_online.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using PagedList;
-using PagedList.Mvc;
 
 namespace Dicho_online.Controllers
 {
@@ -30,17 +27,21 @@ namespace Dicho_online.Controllers
             return list;
         }
 
-        public ActionResult Sort(string sort)
+        [HttpPost]
+        public ActionResult Sort()
         {
-            if(sort == "Price ascending")
+            string sort = Request.Form["ddlPrice"].ToString();
+            /*ViewBag.PriceSortAscParm = String.IsNullOrEmpty(sort) ? "priceSort=Price ascending" : "";
+            ViewBag.PriceSortDescParm = String.IsNullOrEmpty(sort) ? "Price descending" : "";*/
+            var products = from p in db.Products
+                           orderby p.UnitPrice
+                           select p;
+            if (sort == "Price descending")
             {
-
+                products = products.OrderByDescending(p => p.UnitPrice);
+                return View("Index");
             }
-            else if (sort == "Price descending")
-            {
-
-            }
-            return View("Index");
+            return View("Index", products);
         }
         
         public ActionResult LoggedIn()
