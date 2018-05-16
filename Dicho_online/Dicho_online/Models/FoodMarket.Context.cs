@@ -34,12 +34,13 @@ namespace Dicho_online.Models
         public virtual DbSet<EmployeeTitle> EmployeeTitles { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ProductPhoto> ProductPhotos { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
+        public virtual DbSet<Container> Containers { get; set; }
+        public virtual DbSet<Measurement> Measurements { get; set; }
     
         public virtual ObjectResult<string> getSalt(string username)
         {

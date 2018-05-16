@@ -81,18 +81,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ProductPhotos">
-      <EntityTypeMapping TypeName="FoodMarketModel.ProductPhoto">
-        <MappingFragment StoreEntitySet="ProductPhotos">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
-          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="FoodMarketModel.Product">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+          <ScalarProperty Name="Container" ColumnName="Container" />
+          <ScalarProperty Name="UnitMeasurement" ColumnName="UnitMeasurement" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -187,5 +181,21 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="FoodMarketModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="FoodMarketModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="Containers">
+      <EntityTypeMapping TypeName="FoodMarketModel.Container">
+        <MappingFragment StoreEntitySet="Container">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measurements">
+      <EntityTypeMapping TypeName="FoodMarketModel.Measurement">
+        <MappingFragment StoreEntitySet="Measurement">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

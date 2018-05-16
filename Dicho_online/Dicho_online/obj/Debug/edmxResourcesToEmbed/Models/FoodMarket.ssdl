@@ -8,6 +8,13 @@
     <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
     <Property Name="PhotoPath" Type="varchar" MaxLength="2000" />
   </EntityType>
+  <EntityType Name="Container">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="Customers">
     <Key>
       <PropertyRef Name="CustomerID" />
@@ -51,6 +58,13 @@
     <Property Name="TitleID" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="TitleName" Type="nvarchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="Measurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="10" />
+  </EntityType>
   <EntityType Name="OrderDetails">
     <Key>
       <PropertyRef Name="OrderID" />
@@ -74,14 +88,6 @@
     <Property Name="Paid" Type="bit" />
     <Property Name="Delivered" Type="bit" />
   </EntityType>
-  <EntityType Name="ProductPhotos">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PhotoPath" Type="varchar" MaxLength="1000" />
-    <Property Name="ProductID" Type="varchar" MaxLength="10" />
-  </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -90,11 +96,14 @@
     <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
     <Property Name="SupplierID" Type="varchar" MaxLength="10" />
     <Property Name="CategoryID" Type="varchar" MaxLength="10" />
-    <Property Name="QuantityPerUnit" Type="int" />
     <Property Name="UnitPrice" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="QuantityPerUnit" Type="int" />
+    <Property Name="UnitMeasurement" Type="int" />
+    <Property Name="Container" Type="int" />
     <Property Name="InStock" Type="int" />
     <Property Name="OnOrder" Type="int" />
     <Property Name="Discontinue" Type="bit" />
+    <Property Name="Thumbnail" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="Suppliers">
     <Key>
@@ -214,18 +223,6 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProductPhotos_Products">
-    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-    <End Role="ProductPhotos" Type="Self.ProductPhotos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="ProductPhotos">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Products_Categories">
     <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
     <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -235,6 +232,30 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
       </Principal>
       <Dependent Role="Products">
         <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Container">
+    <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Measurement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="UnitMeasurement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Container1">
+    <End Role="Container" Type="Self.Container" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Container">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Container" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -307,13 +328,14 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="FoodMarketModelStoreContainer">
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerTitles" EntityType="Self.CustomerTitles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeTitles" EntityType="Self.EmployeeTitles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProductPhotos" EntityType="Self.ProductPhotos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -355,12 +377,16 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK_ProductPhotos_Products" Association="Self.FK_ProductPhotos_Products">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="ProductPhotos" EntitySet="ProductPhotos" />
-    </AssociationSet>
     <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
       <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Container" Association="Self.FK_Products_Container">
+      <End Role="Measurement" EntitySet="Measurement" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Container1" Association="Self.FK_Products_Container1">
+      <End Role="Container" EntitySet="Container" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">

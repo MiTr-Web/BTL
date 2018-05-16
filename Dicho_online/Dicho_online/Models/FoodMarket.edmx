@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FoodMarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FoodMarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -12,6 +12,13 @@
           <Property Name="CategoryID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CategoryName" Type="nvarchar" MaxLength="100" />
           <Property Name="PhotoPath" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -56,6 +63,13 @@
           <Property Name="TitleID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="TitleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -79,14 +93,6 @@
           <Property Name="Paid" Type="bit" />
           <Property Name="Delivered" Type="bit" />
         </EntityType>
-        <EntityType Name="ProductPhotos">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PhotoPath" Type="varchar" MaxLength="1000" />
-          <Property Name="ProductID" Type="varchar" MaxLength="10" />
-        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -95,11 +101,14 @@
           <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="SupplierID" Type="varchar" MaxLength="10" />
           <Property Name="CategoryID" Type="varchar" MaxLength="10" />
-          <Property Name="QuantityPerUnit" Type="int" />
           <Property Name="UnitPrice" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="QuantityPerUnit" Type="int" />
+          <Property Name="UnitMeasurement" Type="int" />
+          <Property Name="Container" Type="int" />
           <Property Name="InStock" Type="int" />
           <Property Name="OnOrder" Type="int" />
           <Property Name="Discontinue" Type="bit" />
+          <Property Name="Thumbnail" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -219,18 +228,6 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductPhotos_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="ProductPhotos" Type="Self.ProductPhotos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="ProductPhotos">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
@@ -240,6 +237,30 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             </Principal>
             <Dependent Role="Products">
               <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Container">
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="UnitMeasurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Container1">
+          <End Role="Container" Type="Self.Container" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Container">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="Container" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -312,13 +333,14 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="FoodMarketModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerTitles" EntityType="Self.CustomerTitles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeTitles" EntityType="Self.EmployeeTitles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductPhotos" EntityType="Self.ProductPhotos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -360,12 +382,16 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductPhotos_Products" Association="Self.FK_ProductPhotos_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductPhotos" EntitySet="ProductPhotos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Container" Association="Self.FK_Products_Container">
+            <End Role="Measurement" EntitySet="Measurement" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Container1" Association="Self.FK_Products_Container1">
+            <End Role="Container" EntitySet="Container" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
@@ -377,8 +403,7 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FoodMarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -469,15 +494,6 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
           <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
         </EntityType>
-        <EntityType Name="ProductPhoto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PhotoPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="ProductID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductPhotos_Products" FromRole="ProductPhotos" ToRole="Products" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -493,8 +509,12 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
           <Property Name="Discontinue" Type="Boolean" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
-          <NavigationProperty Name="ProductPhotos" Relationship="Self.FK_ProductPhotos_Products" FromRole="Products" ToRole="ProductPhotos" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+          <Property Name="UnitMeasurement" Type="Int32" />
+          <Property Name="Container" Type="Int32" />
+          <Property Name="Thumbnail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Container1" Relationship="FoodMarketModel.FK_Products_Container1" FromRole="Product" ToRole="Container" />
+          <NavigationProperty Name="Measurement" Relationship="FoodMarketModel.FK_Products_Container" FromRole="Product" ToRole="Measurement" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -638,18 +658,6 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductPhotos_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductPhotos" Type="Self.ProductPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="ProductPhotos">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_Suppliers">
           <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -670,7 +678,6 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
           <EntitySet Name="EmployeeTitles" EntityType="Self.EmployeeTitle" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="ProductPhotos" EntityType="Self.ProductPhoto" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -708,16 +715,12 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductPhotos_Products" Association="Self.FK_ProductPhotos_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductPhotos" EntitySet="ProductPhotos" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
             <End Role="Suppliers" EntitySet="Suppliers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <FunctionImport Name="getSalt" ReturnType="Collection(String)">
-            <Parameter Name="username" Mode="In" Type="String" />
+          <Parameter Name="username" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Login" ReturnType="Collection(FoodMarketModel.Login_Result)">
             <Parameter Name="username" Mode="In" Type="String" />
@@ -758,6 +761,16 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Containers" EntityType="FoodMarketModel.Container" />
+          <EntitySet Name="Measurements" EntityType="FoodMarketModel.Measurement" />
+          <AssociationSet Name="FK_Products_Container1" Association="FoodMarketModel.FK_Products_Container1">
+            <End Role="Container" EntitySet="Containers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Container" Association="FoodMarketModel.FK_Products_Container">
+            <End Role="Measurement" EntitySet="Measurements" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Login_Result">
           <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="10" />
@@ -774,6 +787,46 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="FoodMarketModel.FK_Products_Container1" FromRole="Container" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Measurement">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="FoodMarketModel.FK_Products_Container" FromRole="Measurement" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Products_Container1">
+          <End Type="FoodMarketModel.Container" Role="Container" Multiplicity="0..1" />
+          <End Type="FoodMarketModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Container">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Container" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_Container">
+          <End Type="FoodMarketModel.Measurement" Role="Measurement" Multiplicity="0..1" />
+          <End Type="FoodMarketModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measurement">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitMeasurement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -860,18 +913,12 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductPhotos">
-            <EntityTypeMapping TypeName="FoodMarketModel.ProductPhoto">
-              <MappingFragment StoreEntitySet="ProductPhotos">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="FoodMarketModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="Container" ColumnName="Container" />
+                <ScalarProperty Name="UnitMeasurement" ColumnName="UnitMeasurement" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -966,6 +1013,22 @@ warning 6002: The table/view 'FoodMarket.dbo.View_Product' does not have a prima
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="FoodMarketModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="FoodMarketModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Containers">
+            <EntityTypeMapping TypeName="FoodMarketModel.Container">
+              <MappingFragment StoreEntitySet="Container">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measurements">
+            <EntityTypeMapping TypeName="FoodMarketModel.Measurement">
+              <MappingFragment StoreEntitySet="Measurement">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

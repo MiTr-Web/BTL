@@ -1,0 +1,67 @@
+﻿@using Dicho_online.Models
+@model Dicho_online.Models.HomeViewModel
+@{ 
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowCart</h2>
+@if (Model.product_detail != null)
+{
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>        
+        <th>
+            Image
+        </th>
+        <th>
+            Quantity per unit
+        </th>
+        <th>
+            Unit price
+        </th>
+        <th>
+            Measuring unit
+        </th>
+        <th>
+            Container
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.product_detail)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>           
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" ) width="150px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Measurement.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Container1.name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total: @Html.Raw(@ViewBag.totalCash)
+            </td>
+        </tr>
+    }
+</table>
+}
+else
+{
+     @Html.Raw(@ViewBag.msg);
+}

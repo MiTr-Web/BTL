@@ -10,9 +10,18 @@
     .wrapper {
     }
 
+    .detail {
+        margin-left: 5px;
+    }
+
     .item {
         display: inline-block;
         border: 1px solid black;
+        
+        padding-left: 5px;
+        padding-right: 5px;
+
+        height: 300px;
     }
 
     .link {
@@ -20,9 +29,13 @@
     }
 
         .link:hover {
-            color: blue;
+            color: black;
             text-decoration: none;
         }
+
+            .link:hover + .add_cart {
+                display: inline-block;
+            }
 
     .pagination > li a {
         color: blue;
@@ -30,6 +43,37 @@
 
     #ddl-sort {
         padding-bottom: 20px;
+    }
+
+    .add_cart {
+        background-color: forestgreen;
+        float: right;
+        margin-right: 5px;
+        color: white !important;
+        padding-left: 5px;
+        padding-right: 5px;
+        display: none;
+        position: relative;
+        top: -40px;
+    }
+
+        .add_cart:hover {
+            display: inline-block;
+            background-color: lightskyblue;
+            text-decoration: none;
+        }
+
+    .provider, .unit {
+        opacity: 0.5;
+        color: black !important;
+    }
+
+    .product-name {
+        font-weight: 500;
+    }
+
+    .product-price {
+        color: green;
     }
 </style>
 
@@ -48,18 +92,25 @@
     {
         <div class="item">
             <a class="link" href="@Url.Action("Details","ProductDetails",new {id=item.ProductID })">
-                <img src="http://www.vegetables.co.nz/assets/Uploads/vegetables.jpg" width="200px" />
+                <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="200px" height="200px" />
                 <div class="detail">
-                    @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br />
-                    @Html.DisplayFor(modelItem => item.ProductName)<br />
-                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                    <span class="provider"> @Html.DisplayFor(modelItem => item.Supplier.CompanyName) </span><br />
+                    <span class="product-name"> @Html.DisplayFor(modelItem => item.ProductName) </span><br />
+                    <b class="product-price"><i class="fas fa-dollar-sign"></i> @Html.DisplayFor(modelItem => item.UnitPrice) </b><br />
+                    <span class="unit">
+                        @Html.DisplayFor(modelItem => item.QuantityPerUnit) @Html.DisplayFor(modelItem => item.Measurement.name)@if (item.Container1.ID != 1)
+                        { @Html.Raw("/"); @Html.DisplayFor(modelItem => item.Container1.name);
+                        }
+                    </span>
+                    &ensp;
+                    
                 </div>
             </a>
+            <a class="add_cart" href="#">Add to cart</a>
         </div>
 
     }
 </div>
 @Html.PagedListPager(Model.productList, page => Url.Action("Index", new { page }))
-
 
 

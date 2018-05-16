@@ -31,10 +31,19 @@
             @Html.DisplayNameFor(model => model.Discontinue)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Supplier.CompanyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Container1.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Measurement.name)
         </th>
         <th></th>
     </tr>
@@ -60,14 +69,23 @@
             @Html.DisplayFor(modelItem => item.Discontinue)
         </td>
         <td>
+            <img src="@Html.DisplayFor(modelItem => item.Thumbnail)") width="150px"/>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Category.CategoryName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Supplier.CompanyName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+            @Html.DisplayFor(modelItem => item.Container1.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Measurement.name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) 
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) 
             @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
         </td>
     </tr>

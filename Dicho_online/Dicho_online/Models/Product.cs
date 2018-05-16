@@ -18,7 +18,6 @@ namespace Dicho_online.Models
         public Product()
         {
             this.OrderDetails = new HashSet<OrderDetail>();
-            this.ProductPhotos = new HashSet<ProductPhoto>();
         }
     
         public string ProductID { get; set; }
@@ -30,13 +29,15 @@ namespace Dicho_online.Models
         public Nullable<int> InStock { get; set; }
         public Nullable<int> OnOrder { get; set; }
         public Nullable<bool> Discontinue { get; set; }
-        public Supplier SupplierName { get; set; }
+        public Nullable<int> UnitMeasurement { get; set; }
+        public Nullable<int> Container { get; set; }
+        public string Thumbnail { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductPhoto> ProductPhotos { get; set; }
         public virtual Supplier Supplier { get; set; }
+        public virtual Container Container1 { get; set; }
+        public virtual Measurement Measurement { get; set; }
     }
 }

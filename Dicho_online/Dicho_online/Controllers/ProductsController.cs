@@ -17,7 +17,7 @@ namespace Dicho_online.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier).Include(p => p.Container1).Include(p => p.Measurement);
             return View(products.ToList());
         }
 
@@ -41,6 +41,8 @@ namespace Dicho_online.Controllers
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName");
+            ViewBag.Container = new SelectList(db.Containers, "ID", "name");
+            ViewBag.UnitMeasurement = new SelectList(db.Measurements, "ID", "name");
             return View();
         }
 
@@ -49,7 +51,7 @@ namespace Dicho_online.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue,UnitMeasurement,Container,Thumbnail")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +62,8 @@ namespace Dicho_online.Controllers
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
+            ViewBag.Container = new SelectList(db.Containers, "ID", "name", product.Container);
+            ViewBag.UnitMeasurement = new SelectList(db.Measurements, "ID", "name", product.UnitMeasurement);
             return View(product);
         }
 
@@ -77,6 +81,8 @@ namespace Dicho_online.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
+            ViewBag.Container = new SelectList(db.Containers, "ID", "name", product.Container);
+            ViewBag.UnitMeasurement = new SelectList(db.Measurements, "ID", "name", product.UnitMeasurement);
             return View(product);
         }
 
@@ -85,7 +91,7 @@ namespace Dicho_online.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,SupplierID,CategoryID,QuantityPerUnit,UnitPrice,InStock,OnOrder,Discontinue,UnitMeasurement,Container,Thumbnail")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +101,8 @@ namespace Dicho_online.Controllers
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.SupplierID = new SelectList(db.Suppliers, "SupplierID", "CompanyName", product.SupplierID);
+            ViewBag.Container = new SelectList(db.Containers, "ID", "name", product.Container);
+            ViewBag.UnitMeasurement = new SelectList(db.Measurements, "ID", "name", product.UnitMeasurement);
             return View(product);
         }
 

@@ -87,15 +87,6 @@
     <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
   </EntityType>
-  <EntityType Name="ProductPhoto">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PhotoPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-    <Property Name="ProductID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_ProductPhotos_Products" FromRole="ProductPhotos" ToRole="Products" />
-  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -111,8 +102,12 @@
     <Property Name="Discontinue" Type="Boolean" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Products" FromRole="Products" ToRole="OrderDetails" />
-    <NavigationProperty Name="ProductPhotos" Relationship="Self.FK_ProductPhotos_Products" FromRole="Products" ToRole="ProductPhotos" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+    <Property Name="UnitMeasurement" Type="Int32" />
+    <Property Name="Container" Type="Int32" />
+    <Property Name="Thumbnail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Container1" Relationship="FoodMarketModel.FK_Products_Container1" FromRole="Product" ToRole="Container" />
+    <NavigationProperty Name="Measurement" Relationship="FoodMarketModel.FK_Products_Container" FromRole="Product" ToRole="Measurement" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -256,18 +251,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProductPhotos_Products">
-    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="ProductPhotos" Type="Self.ProductPhoto" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="ProductPhotos">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Products_Suppliers">
     <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
     <End Role="Products" Type="Self.Product" Multiplicity="*" />
@@ -288,7 +271,6 @@
     <EntitySet Name="EmployeeTitles" EntityType="Self.EmployeeTitle" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
-    <EntitySet Name="ProductPhotos" EntityType="Self.ProductPhoto" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -325,10 +307,6 @@
     <AssociationSet Name="FK_OrderDetails_Products" Association="Self.FK_OrderDetails_Products">
       <End Role="Products" EntitySet="Products" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProductPhotos_Products" Association="Self.FK_ProductPhotos_Products">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="ProductPhotos" EntitySet="ProductPhotos" />
     </AssociationSet>
     <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
       <End Role="Suppliers" EntitySet="Suppliers" />
@@ -376,6 +354,16 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Containers" EntityType="FoodMarketModel.Container" />
+    <EntitySet Name="Measurements" EntityType="FoodMarketModel.Measurement" />
+    <AssociationSet Name="FK_Products_Container1" Association="FoodMarketModel.FK_Products_Container1">
+      <End Role="Container" EntitySet="Containers" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Container" Association="FoodMarketModel.FK_Products_Container">
+      <End Role="Measurement" EntitySet="Measurements" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="Login_Result">
     <Property Type="String" Name="CustomerID" Nullable="true" MaxLength="10" />
@@ -392,4 +380,44 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="Container">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="FoodMarketModel.FK_Products_Container1" FromRole="Container" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Measurement">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="FoodMarketModel.FK_Products_Container" FromRole="Measurement" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Products_Container1">
+    <End Type="FoodMarketModel.Container" Role="Container" Multiplicity="0..1" />
+    <End Type="FoodMarketModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Container">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="Container" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Container">
+    <End Type="FoodMarketModel.Measurement" Role="Measurement" Multiplicity="0..1" />
+    <End Type="FoodMarketModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Measurement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="UnitMeasurement" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
