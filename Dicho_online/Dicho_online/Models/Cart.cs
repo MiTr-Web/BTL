@@ -9,9 +9,25 @@ namespace Dicho_online.Models
     {
         private List<Product> cart = new List<Product>();
 
-        public void Add(Product item)
-        {            
-            cart.Add(item);
+        public void Add(Product item, int quantity)
+        {
+            bool exist = false;
+            foreach(Product p in cart)
+            {
+                // can phai sua lai khi them mot luc nhieu item
+                if(p.ProductID == item.ProductID)
+                {
+                    p.QuantityPerUnit += item.QuantityPerUnit;
+                    p.quantity += quantity;
+                    exist = true;
+                    break;
+                }
+            }
+            if (exist != true)
+            {
+                item.quantity = quantity;
+                cart.Add(item);
+            }           
         }
         public void Remove(Product item)
         {

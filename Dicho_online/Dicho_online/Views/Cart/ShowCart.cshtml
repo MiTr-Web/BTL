@@ -17,13 +17,10 @@
             Image
         </th>
         <th>
-            Quantity per unit
+            Quantity
         </th>
         <th>
             Unit price
-        </th>
-        <th>
-            Measuring unit
         </th>
         <th>
             Container
@@ -42,23 +39,22 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuantityPerUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-            </td>            
-            <td>
                 @Html.DisplayFor(modelItem => item.Measurement.name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+                
+            </td>            
+            <td>
                 @Html.DisplayFor(modelItem => item.Container1.name)
             </td>
-        </tr>
-        <tr>
-            <td>
-                Total: @Html.Raw(@ViewBag.totalCash)
-            </td>
-        </tr>
+        </tr>       
     }
+    <tr>
+        <td>
+            <b>Total: @Html.Raw(@ViewBag.totalCash)</b>
+        </td>
+    </tr>
 </table>
 }
 else

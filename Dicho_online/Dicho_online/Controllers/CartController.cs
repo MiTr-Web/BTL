@@ -11,7 +11,7 @@ namespace Dicho_online.Controllers
     {
         FoodMarketEntities db = new FoodMarketEntities();
         // GET: Cart
-        public ActionResult AddToCart(string id)
+        public ActionResult AddToCart(string id, int quantity)
         {
             Cart cart = (Cart)Session["cart"];
             if (cart == null)
@@ -21,7 +21,7 @@ namespace Dicho_online.Controllers
             Product item = (from p in db.Products
                          where p.ProductID == id
                          select p).First();
-            cart.Add(item);
+            cart.Add(item,quantity);
             Session["cart"] = cart;
             ViewBag.numberOfItems = cart.numberOfItems();
             return Redirect(Request.UrlReferrer.ToString());

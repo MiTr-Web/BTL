@@ -3,6 +3,10 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var amount = 0;
+}
+@functions{
+    
 }
 
 <style>
@@ -51,7 +55,7 @@
         @foreach (var item in Model.product_detail)
         {
             <div class="image">
-                <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="400px" height="300px"/>
+                <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="400px" height="300px" />
             </div>
             <div class="detail">
                 @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br /><br />
@@ -62,18 +66,21 @@
                 <button type="button" id="minus" class="btn-amount"><i class="fas fa-minus"></i></button>
                 <div id="amount" name="amount">
                     @{
-                        int amount = (int)item.QuantityPerUnit;
+                        amount = (int)item.QuantityPerUnit;
                     }
-                    @Html.Raw(amount) @Html.DisplayFor(modelItem => item.Measurement.name)
+                    <span id="amount">@Html.Raw(amount)</span> @Html.DisplayFor(modelItem => item.Measurement.name)
                 </div>
                 <button type="button" id="plus" class="btn-amount"><i class="fas fa-plus"></i></button>
                 <br /><br />
                 <b>Total: </b>(button and this still under construction)
                 <hr />
-                <button type="submit" onclick="location.href='@Url.Action("AddToCart","Cart",new { id = @item.ProductID})'">Add to cart</button>---test as 1 unit
+                <button type="submit" onclick="location.href='@Url.Action("AddToCart","Cart",new { id = @item.ProductID, quantity = 1})'">Add to cart</button>---test as 1 unit
             </div>
          }
     </div>
 </div>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+<script>
+</script>
