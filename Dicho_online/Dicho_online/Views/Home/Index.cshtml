@@ -4,6 +4,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home";
 }
 
 <style>
@@ -106,7 +107,7 @@
                     
                 </div>
             </a>
-            <a class="add_cart" href="#">Add to cart</a>
+            <a class="add_cart" href="@Url.Action("AddToCart","Cart",new { id = @item.ProductID})">Add to cart</a>
         </div>
 
     }
