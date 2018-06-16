@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var amount = 0;
 }
 @functions{
     
@@ -63,14 +62,11 @@
                 <h3><i class="fas fa-dollar-sign"></i> @Html.DisplayFor(modelItem => item.UnitPrice)</h3>
                 <hr />
                 <b>Amount: </b>
-                <button type="button" id="minus" class="btn-amount"><i class="fas fa-minus"></i></button>
-                <div id="amount" name="amount">
-                    @{
-                        amount = (int)item.QuantityPerUnit;
-                    }
-                    <span id="amount">@Html.Raw(amount)</span> @Html.DisplayFor(modelItem => item.Measurement.name)
+                <button type="button" id="minus" class="btn-amount" onclick="minus();"><i class="fas fa-minus"></i></button>
+                <div id="unit-measure" name="amount">
+                    <span id="amount"></span> @Html.DisplayFor(modelItem => item.Measurement.name)
                 </div>
-                <button type="button" id="plus" class="btn-amount"><i class="fas fa-plus"></i></button>
+                <button type="button" id="plus" class="btn-amount" onclick="add();"><i class="fas fa-plus"></i></button>
                 <br /><br />
                 <b>Total: </b>(button and this still under construction)
                 <hr />
@@ -83,4 +79,27 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 <script>
+    var amount = 1;
+    document.getElementById("amount").innerHTML = amount;
+    document.getElementById("minus").style.visibility = "hidden";
+
+    function addtocart() {
+        var xhttp = new XMLHttpRequest();
+
+    }
+
+    function add(){
+        amount++;
+        if (amount > 1) {
+            document.getElementById("minus").style.visibility = "visible";
+        }
+        document.getElementById("amount").innerHTML = amount;
+    }
+    function minus() {
+        amount--;
+        if (amount == 1) {
+            document.getElementById("minus").style.visibility = "hidden";
+        }
+        document.getElementById("amount").innerHTML = amount;
+    }
 </script>
