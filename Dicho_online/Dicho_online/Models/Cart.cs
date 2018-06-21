@@ -17,8 +17,9 @@ namespace Dicho_online.Models
                 // can phai sua lai khi them mot luc nhieu item
                 if(p.ProductID == item.ProductID)
                 {
-                    p.QuantityPerUnit += item.QuantityPerUnit;
-                    p.quantity += quantity;
+                    p.QuantityPerUnit = item.QuantityPerUnit;
+                    p.quantity = quantity;
+                    p.totalPrice = quantity * item.UnitPrice;
                     exist = true;
                     break;
                 }
@@ -26,11 +27,22 @@ namespace Dicho_online.Models
             if (exist != true)
             {
                 item.quantity = quantity;
+                item.totalPrice = quantity * item.UnitPrice;
                 cart.Add(item);
             }           
         }
-        public void Remove(Product item)
+        public bool checkExist(string id)
         {
+            Product item = cart.Find(x => x.ProductID == id);
+            if (item == null)
+            {
+                return false;
+            }
+            else return true;
+        }
+        public void Remove(string id)
+        {
+            Product item = cart.Find(x => x.ProductID==id);
             cart.Remove(item);
         }
         public List<Product> getCart()
@@ -41,12 +53,23 @@ namespace Dicho_online.Models
         {
             return cart.Count();
         }
+        public int quantityOfProducts(string id)
+        {
+            int quantity = 0;
+            Product item = cart.Find(x => x.ProductID == id);
+            if (item == null)
+            {
+                return 1;
+            }
+            quantity = item.quantity;
+            return quantity;
+        }
         public decimal totalCash()
         {
             decimal total = 0;
-            foreach(Product i in cart)
+            foreach(Product p in cart)
             {
-                total += (decimal)i.UnitPrice;
+                total += (decimal)p.UnitPrice*p.quantity;
             }
             return total;
         }

@@ -35,29 +35,30 @@
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>           
             <td>
-                <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" ) width="150px" />
+                <a href="@Url.Action("Details","ProductDetails",new {id=item.ProductID })"><img src="@Html.DisplayFor(modelItem => item.Thumbnail)" ) width="150px" /></a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantityPerUnit)
-                @Html.DisplayFor(modelItem => item.Measurement.name)
+                @Html.DisplayFor(modelItem => item.quantity)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitPrice)
-                
+            <td id="totalPrice">
+                @Html.DisplayFor(modelItem => item.totalPrice)
             </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.Container1.name)
             </td>
         </tr>       
     }
-    <tr>
-        <td>
-            <b>Total: @Html.Raw(@ViewBag.totalCash)</b>
-        </td>
-    </tr>
 </table>
+    <div>
+        <hr />
+        <b style="float:right;padding-top:30px;">Total: @Html.Raw(@ViewBag.totalCash)</b>
+    </div>
 }
 else
 {
      @Html.Raw(@ViewBag.msg);
 }
+
+<script>
+    
+</script>

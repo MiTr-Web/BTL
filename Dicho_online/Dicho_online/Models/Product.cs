@@ -33,6 +33,7 @@ namespace Dicho_online.Models
         public Nullable<int> Container { get; set; }
         public string Thumbnail { get; set; }
         public int quantity { get; set; }
+        public decimal? totalPrice { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

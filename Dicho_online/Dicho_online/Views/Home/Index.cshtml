@@ -107,11 +107,30 @@
                     
                 </div>
             </a>
-            <a class="add_cart" href="@Url.Action("AddToCart","Cart",new { id = @item.ProductID,quantity=1})">Add to cart</a>
+            <a id="@Html.Raw(item.ProductID)" class="add_cart" href="#">Add to cart</a>
         </div>
 
     }
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".add_cart").click(function(){
+            var id = event.target.id;
+
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'post',
+                dataType: 'json',
+                data: { id: id, quantity: 1 },
+                success: function (data) {
+                    $(".numofitem").html(data);
+                }
+            });
+        }); 
+    });
+</script>
+
 @Html.PagedListPager(Model.productList, page => Url.Action("Index", new { page }))
 
 

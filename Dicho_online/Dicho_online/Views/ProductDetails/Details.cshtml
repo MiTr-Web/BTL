@@ -3,9 +3,12 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal initPrice = 0;
+    string id = "";
+    int? quantityPerUnit = 0;
 }
 @functions{
-    
+
 }
 
 <style>
@@ -37,6 +40,12 @@
         color: green;
     }
 
+    #qPU {
+        color: black !important;
+        opacity: 0.5;
+        font-size: 23px;
+    }
+
     .btn-amount {
         border-radius: 25%;
     }
@@ -54,52 +63,129 @@
         @foreach (var item in Model.product_detail)
         {
             <div class="image">
+                @{ id = item.ProductID; quantityPerUnit = item.QuantityPerUnit;}
                 <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="400px" height="300px" />
             </div>
             <div class="detail">
                 @Html.DisplayFor(modelItem => item.Supplier.CompanyName)<br /><br />
                 <h2>@Html.DisplayFor(modelItem => item.ProductName)</h2>
-                <h3><i class="fas fa-dollar-sign"></i> @Html.DisplayFor(modelItem => item.UnitPrice)</h3>
+                <h3><i class="fas fa-dollar-sign"></i> @Html.DisplayFor(modelItem => item.UnitPrice) <span id="qPU">(@Html.DisplayFor(modelItem => item.QuantityPerUnit) @Html.DisplayFor(modelItem => item.Measurement.name))</span></h3>
                 <hr />
                 <b>Amount: </b>
                 <button type="button" id="minus" class="btn-amount" onclick="minus();"><i class="fas fa-minus"></i></button>
                 <div id="unit-measure" name="amount">
-                    <span id="amount"></span> @Html.DisplayFor(modelItem => item.Measurement.name)
+                    <span id="amount"></span>
+                    @Html.DisplayFor(modelItem => item.Container1.name)
+                    
                 </div>
                 <button type="button" id="plus" class="btn-amount" onclick="add();"><i class="fas fa-plus"></i></button>
                 <br /><br />
-                <b>Total: </b>(button and this still under construction)
+                <b>Total: <span id="total"> @{initPrice = item.UnitPrice.Value;}</span></b>
                 <hr />
-                <button type="submit" onclick="location.href='@Url.Action("AddToCart","Cart",new { id = @item.ProductID, quantity = 1})'">Add to cart</button>---test as 1 unit
+                <button id="btnSubmit" type="submit">Add to cart</button>
+                <button id="btnRemove" type="button" style="color:red;border:2px solid red;"><i class="fas fa-times"></i>&ensp;Remove from cart</button>
             </div>
-         }
+                    }
     </div>
 </div>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 <script>
-    var amount = 1;
-    document.getElementById("amount").innerHTML = amount;
-    document.getElementById("minus").style.visibility = "hidden";
+    $(document).ready(function () {
+        var id = '@(id)';
+        var initP = @(initPrice);
+        var total = initP;
+        var amountStep = @(quantityPerUnit);
+        var amount = 1;
+        $("#btnRemove").css("visibility","hidden");
+        $.ajax({
+            url: '/Cart/quantityOfAnItem',
+            type: 'POST',
+            dataType: 'json',
+            data:{id: id},
+            success: function(data){
+                amount = data;
+                total = amount * initP;
+                $("#total").html('$ ' + total.toFixed(2));
+                $("#amount").html(amount*amountStep);
+                if(amount*amountStep <= amountStep){
+                    $("#minus").css("visibility","hidden");
+                    checkExist(id);
+                }
+                else{
+                    $("#btnSubmit").html("Update cart");
+                    $("#btnRemove").css("visibility","visible");
+                }
+            }
+        });
 
-    function addtocart() {
-        var xhttp = new XMLHttpRequest();
+        $("#btnSubmit").click(function(){
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id,quantity: amount},
+                success: function(data){
+                    $(".numofitem").html(data);
+                    $("#btnRemove").css("visibility","visible");
+                },
+                error: function(data){
 
-    }
+                }
+            });
+            $("#btnSubmit").html("Update cart");
+        });
 
-    function add(){
-        amount++;
-        if (amount > 1) {
-            document.getElementById("minus").style.visibility = "visible";
-        }
-        document.getElementById("amount").innerHTML = amount;
-    }
-    function minus() {
-        amount--;
-        if (amount == 1) {
-            document.getElementById("minus").style.visibility = "hidden";
-        }
-        document.getElementById("amount").innerHTML = amount;
+        $("#btnRemove").click(function(){
+            $.ajax({
+                url: '/Cart/RemoveFromCart',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function(data){
+                    $(".numofitem").html(data);
+                    $("#btnRemove").css("visibility","hidden");
+                    $("#btnSubmit").html("Add to cart");
+                },
+                error: function(data){
+
+                }
+            });
+        });
+
+        $("#plus").click(function() {
+            amount++;
+            if (amount > 1) {
+                document.getElementById("minus").style.visibility = "visible";
+            }
+            document.getElementById("amount").innerHTML = amount*amountStep;
+            total = initP * amount;
+            document.getElementById("total").innerHTML = '$ ' + total.toFixed(2);
+        });
+        $("#minus").click(function() {
+            amount--;
+            if (amount == 1) {
+                document.getElementById("minus").style.visibility = "hidden";
+            }
+            document.getElementById("amount").innerHTML = amount*amountStep;
+            total = (initP * amount);
+            document.getElementById("total").innerHTML = '$ ' + total.toFixed(2);
+        });
+    });
+
+    function checkExist(id){
+        $.ajax({
+            url: '/Cart/checkExist',
+            type: 'post',
+            dataType: 'json',
+            data:{id: id},
+            success:function(data){
+                if(data==true){
+                    $("#btnSubmit").html("Update cart");
+                    $("#btnRemove").css("visibility","visible");
+                }
+            }
+        });
     }
 </script>
