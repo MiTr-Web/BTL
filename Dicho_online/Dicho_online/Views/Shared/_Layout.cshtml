@@ -39,11 +39,10 @@
                 </li>
             </ul>
             <form class="form-inline mr-md-auto search">
-                <input id="search-text" class="form-control" type="text" autocomplete="off" placeholder="Search" style="display:inline">
+                <input id="search-text" class="form-control" type="text" placeholder="Search" style="display:inline">
                 <button class="btn" type="button" style="display:inline">
                     <i class="fas fa-search"></i>
                 </button>
-                <div id="result"></div>
             </form>
             <div class="user">
                 <a href="@Url.Action("ShowCart","Cart")">Cart&ensp;</a><span class="badge badge-danger numofitem"></span><span>&ensp;&ensp;&ensp;&ensp;</span>
@@ -62,18 +61,6 @@
         <style>
             .user > a{
                 display: inline-block;
-            }
-            #result{
-                background-color: white;
-                border: 1px solid gray;
-                width: 400px;
-                min-height: 80px;
-                max-height: 200px;
-                overflow: auto;
-                position:absolute;
-                visibility: hidden;
-                top: 38px;
-                padding: 10px;                
             }
             @@media screen and (min-width: 992px){
                 .navbar {
@@ -155,7 +142,6 @@
             .body{
                 min-height:441px;
             }
-
         </style>
         <script>
 
@@ -220,18 +206,6 @@
                 padding-left: 50px;
                 padding-bottom: 30px;
             }
-
-            .result{
-                padding: 0;
-                margin:0;
-                width: 100%;
-            }
-            .result td{
-                width: 50%;
-            }
-            .result-link{
-                color:black;
-            }
         </style>
     </footer>
 
@@ -242,7 +216,6 @@
 
     <script>
         $(document).ready(function () {
-            $("#result").slideUp(0);
             $.ajax({
                 url: '/Cart/numberOfItemsInCart',
                 type: 'post',
@@ -251,61 +224,6 @@
                 success: function (data) {
                     $(".numofitem").html(data);
                 }
-            });
-
-            $("#search-text").keyup(function(){
-                $("#result").css("visibility","visible");
-                $("#result").slideDown();
-                var string = $("#search-text").val();
-                if(string != ""){
-                    $("#result").html("<i>No result...</i>");
-                    $.ajax({
-                        url: '/Products/Search',
-                        type: 'post',
-                        dataType: 'json',
-                        data: {search: string},
-                        success: function(data){                            
-                            if(data!==null){
-                                var obj = JSON.parse(data);
-                                var i =0;
-                                $("#result").html("");
-                                for (i; i < obj.length; i++) {
-                                    var unit = "";
-                                    if (obj[i].container != "none") {
-                                        unit = obj[i].container;
-                                    }
-                                    else {
-                                        unit = obj[i].unitNetWeight + obj[i].measure;
-                                    }
-                                    $("#result").append(
-                                        
-                                        "<table class='result'>"+
-                                        "<tr>"+
-                                        "<td rowspan='2'>" + "<a class='result-link' href='" + "ProductDetails/Details/" + obj[i].id + "'>" + "<img src='" + obj[i].image + "' width='60px'>"+"</a>" +
-                                        "</td>"+
-                                        "<td>"+"<a class='result-link' href='"+ "ProductDetails/Details/"+obj[i].id+"'>"+obj[i].name+"</a>"+
-                                        "</td>" +
-                                        "<td rowspan='2'>" +
-                                        "</td>" +
-                                        "</tr>"+
-                                        "<tr>"+
-                                        "<td>"+"$ "+obj[i].price.toFixed(2)+" / "+unit+
-                                        "</td>"+
-                                        "</tr>"+
-                                        "</table>"+
-                                        "<hr>"
-                                        );
-                                }                               
-                            }
-                        }
-                    });
-                }
-                else{
-                    $("#result").html("<i>No result...</i>");
-                }
-            });
-            $("#search-text").focusout(function(){
-                $("#result").css("visibility","hidden");
             });
         });
     </script>

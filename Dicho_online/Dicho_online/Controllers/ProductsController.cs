@@ -4,10 +4,9 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web.Script.Serialization;
+using System.Web;
 using System.Web.Mvc;
 using Dicho_online.Models;
-using Newtonsoft.Json;
 
 namespace Dicho_online.Controllers
 {
@@ -20,38 +19,6 @@ namespace Dicho_online.Controllers
         {
             var products = db.Products.Include(p => p.Category).Include(p => p.Container1).Include(p => p.Measurement).Include(p => p.Supplier);
             return View(products.ToList());
-        }
-
-        [HttpPost]
-        public JsonResult Search(string search)
-        {
-            var settings = new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Error = (sender, args) =>
-                {
-                    args.ErrorContext.Handled = true;
-                },
-            };
-            var r = db.Products.Where(x => x.ProductName.Contains(search))
-                .Select(a => new
-                {
-                    id = a.ProductID,
-                    name = a.ProductName,
-                    price = a.UnitPrice,
-                    image = a.Thumbnail,
-                    measure = a.Measurement.name,
-                    container = a.Container1.name,
-                    unitNetWeight = a.QuantityPerUnit
-                });
-            string json = JsonConvert.SerializeObject(r, settings);
-
-            if (json == "[]")
-            {
-                return Json(null,JsonRequestBehavior.AllowGet);
-            }
-            
-            return Json(json,JsonRequestBehavior.AllowGet);
         }
 
         // GET: Products/Details/5
