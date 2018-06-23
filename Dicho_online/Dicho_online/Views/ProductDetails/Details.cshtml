@@ -1,4 +1,5 @@
 ﻿@using Dicho_online.Models
+@using System.Globalization
 @model Dicho_online.Models.HomeViewModel
 @{
     ViewBag.Title = "Details";
@@ -104,11 +105,14 @@
 <script>
     $(document).ready(function () {
         var id = '@(id)';
-        var initP = @(initPrice);
+        var initPstring = '@(initPrice)';
+        initPstring = initPstring.replace(/,/g, '.');
+        var initP = parseFloat(initPstring);
         var total = initP;
         var amountStep = @(quantityPerUnit);
         var amount = 1;
         var measure = '@(measure)';
+        alert(id+''+initP+''+amount+''+measure);
         $("#measure").html(measure);
         $("#btnRemove").css("visibility","hidden");
         $.ajax({
