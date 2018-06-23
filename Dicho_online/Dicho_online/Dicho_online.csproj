@@ -230,6 +230,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs" />
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Models\Category.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
     </Compile>
@@ -263,7 +264,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FoodMarket.edmx</DependentUpon>
     </Compile>
-    <Compile Include="GlobalVariables.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Login_Result.cs">
       <DependentUpon>FoodMarket.tt</DependentUpon>
@@ -337,12 +337,12 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\ProductDetails\Details.cshtml" />
+    <Content Include="Views\Cart\ShowCart.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Cart\ShowCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

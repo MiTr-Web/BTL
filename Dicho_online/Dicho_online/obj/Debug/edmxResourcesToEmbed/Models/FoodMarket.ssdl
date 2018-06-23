@@ -98,6 +98,7 @@
     <Property Name="CategoryID" Type="varchar" MaxLength="10" />
     <Property Name="UnitPrice" Type="decimal" Precision="12" Scale="2" />
     <Property Name="QuantityPerUnit" Type="int" />
+    <Property Name="SellingUnit" Type="int" />
     <Property Name="UnitMeasurement" Type="int" />
     <Property Name="Container" Type="int" />
     <Property Name="InStock" Type="int" />

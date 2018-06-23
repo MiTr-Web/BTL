@@ -11,7 +11,7 @@ namespace Dicho_online.Controllers
     {
         FoodMarketEntities db = new FoodMarketEntities();
         // GET: Cart
-        public ActionResult AddToCart(string id, int quantity)
+        public JsonResult AddToCart(string id, int quantity)
         {
             Cart cart = (Cart)Session["cart"];
             if (cart == null)
@@ -23,8 +23,43 @@ namespace Dicho_online.Controllers
                          select p).First();
             cart.Add(item,quantity);
             Session["cart"] = cart;
-            ViewBag.numberOfItems = cart.numberOfItems();
-            return Redirect(Request.UrlReferrer.ToString());
+            return Json(cart.numberOfItems(),JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult RemoveFromCart(string id)
+        {
+            Cart cart = (Cart)Session["cart"];
+            cart.Remove(id);
+            return Json(cart.numberOfItems(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult numberOfItemsInCart()
+        {
+            Cart cart = (Cart)Session["cart"];
+            if (cart == null)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+            return Json(cart.numberOfItems(), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult quantityOfAnItem(string id)
+        {
+            Cart cart = (Cart)Session["cart"];
+            if (cart == null)
+            {
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            return Json(cart.quantityOfProducts(id),JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult checkExist(string id)
+        {
+            Cart cart = (Cart)Session["cart"];
+            if (cart == null)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            return Json(cart.checkExist(id),JsonRequestBehavior.AllowGet);
         }
         public ActionResult ShowCart()
         {

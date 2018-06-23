@@ -17,7 +17,8 @@ namespace Dicho_online.Controllers
             HomeViewModel model = new HomeViewModel();
             model.product_detail = from p in db.Products
                                    where p.ProductID == productID
-                                   select p;                              
+                                   select p;
+            Cart cart = (Cart)Session["cart"];                        
             return View(model);
         }
     }

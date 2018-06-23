@@ -28,10 +28,12 @@ namespace Dicho_online.Models
         }
     
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Container> Containers { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerTitle> CustomerTitles { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeTitle> EmployeeTitles { get; set; }
+        public virtual DbSet<Measurement> Measurements { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -39,8 +41,6 @@ namespace Dicho_online.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<View_Product> View_Product { get; set; }
-        public virtual DbSet<Container> Containers { get; set; }
-        public virtual DbSet<Measurement> Measurements { get; set; }
     
         public virtual ObjectResult<string> getSalt(string username)
         {
