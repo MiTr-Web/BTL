@@ -28,7 +28,7 @@ namespace Dicho_online.Controllers
             int privilege = -1;
             string CustomerID = "";
 
-            string connectionString = ConfigurationManager.ConnectionStrings["FoodMarket"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["FoodMarketEntities"].ConnectionString;
             try
             {
                 DataTable dtSalt = new DataTable();

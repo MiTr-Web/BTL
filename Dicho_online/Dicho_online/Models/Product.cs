@@ -11,7 +11,7 @@ namespace Dicho_online.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,27 +19,28 @@ namespace Dicho_online.Models
         {
             this.OrderDetails = new HashSet<OrderDetail>();
         }
-    
+
         public string ProductID { get; set; }
         public string ProductName { get; set; }
         public string SupplierID { get; set; }
         public string CategoryID { get; set; }
-        public Nullable<int> QuantityPerUnit { get; set; }
         public Nullable<decimal> UnitPrice { get; set; }
+        public Nullable<int> QuantityPerUnit { get; set; }
+        public Nullable<int> SellingUnit { get; set; }
+        public Nullable<int> UnitMeasurement { get; set; }
+        public Nullable<int> Container { get; set; }
         public Nullable<int> InStock { get; set; }
         public Nullable<int> OnOrder { get; set; }
         public Nullable<bool> Discontinue { get; set; }
-        public Nullable<int> UnitMeasurement { get; set; }
-        public Nullable<int> Container { get; set; }
         public string Thumbnail { get; set; }
         public int quantity { get; set; }
         public decimal? totalPrice { get; set; }
-    
+
         public virtual Category Category { get; set; }
+        public virtual Container Container1 { get; set; }
+        public virtual Measurement Measurement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public virtual Container Container1 { get; set; }
-        public virtual Measurement Measurement { get; set; }
     }
 }

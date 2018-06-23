@@ -6,6 +6,7 @@
     decimal initPrice = 0;
     string id = "";
     int? quantityPerUnit = 0;
+    string measure = "";
 }
 @functions{
 
@@ -63,7 +64,7 @@
         @foreach (var item in Model.product_detail)
         {
             <div class="image">
-                @{ id = item.ProductID; quantityPerUnit = item.QuantityPerUnit;}
+                @{ id = item.ProductID; quantityPerUnit = item.SellingUnit;}
                 <img src="@Html.DisplayFor(modelItem => item.Thumbnail)" width="400px" height="300px" />
             </div>
             <div class="detail">
@@ -75,8 +76,17 @@
                 <button type="button" id="minus" class="btn-amount" onclick="minus();"><i class="fas fa-minus"></i></button>
                 <div id="unit-measure" name="amount">
                     <span id="amount"></span>
-                    @Html.DisplayFor(modelItem => item.Container1.name)
-                    
+                    <span id="measure"></span>
+                    @{ 
+                        if (item.Container1.name == "none")
+                        {
+                            measure = item.Measurement.name;
+                        }
+                        else
+                        {
+                            measure = item.Container1.name;
+                        }
+                    }
                 </div>
                 <button type="button" id="plus" class="btn-amount" onclick="add();"><i class="fas fa-plus"></i></button>
                 <br /><br />
@@ -98,6 +108,8 @@
         var total = initP;
         var amountStep = @(quantityPerUnit);
         var amount = 1;
+        var measure = '@(measure)';
+        $("#measure").html(measure);
         $("#btnRemove").css("visibility","hidden");
         $.ajax({
             url: '/Cart/quantityOfAnItem',
