@@ -1,4 +1,5 @@
-﻿using PagedList;
+﻿using Dicho_online.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;

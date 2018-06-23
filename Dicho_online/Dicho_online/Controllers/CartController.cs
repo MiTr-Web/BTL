@@ -18,6 +18,7 @@ namespace Dicho_online.Controllers
             {
                 cart = new Cart();
             }
+
             Product item = (from p in db.Products
                          where p.ProductID == id
                          select p).First();
